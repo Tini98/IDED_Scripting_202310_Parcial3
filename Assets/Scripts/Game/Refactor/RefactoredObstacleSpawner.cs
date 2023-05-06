@@ -16,7 +16,7 @@ public class RefactoredObstacleSpawner : ObstacleSpawnerBase
          throw new System.NotImplementedException();
      }*/
 
-    [SerializeField]
+    /*[SerializeField]
     private PoolBase obstacleLowPool;
 
     [SerializeField]
@@ -80,6 +80,36 @@ public class RefactoredObstacleSpawner : ObstacleSpawnerBase
         {
             Debug.LogWarning("Obstacle pool is empty");
         }
+    }*/
+
+    private static RefactoredObstacleSpawner instance;
+
+    private RefactoredObstacleSpawner() { }
+
+    public static RefactoredObstacleSpawner Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new RefactoredObstacleSpawner();
+            }
+            return instance;
+        }
+    }
+
+    [SerializeField]
+    private PoolBase obstacleLowPool;
+
+    [SerializeField]
+    private PoolBase obstacleMidPool;
+
+    [SerializeField]
+    private PoolBase obstacleHardPool;
+
+    protected override void SpawnObject()
+    {
+        throw new System.NotImplementedException();
     }
 }
 
