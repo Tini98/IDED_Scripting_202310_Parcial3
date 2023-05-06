@@ -14,7 +14,7 @@ public class RefactoredPlayerController : PlayerControllerBase
          //base.SelectBullet(index);
      }*/
 
-    /*protected override bool NoSelectedBullet => false;
+    protected override bool NoSelectedBullet => false;
 
     public static RefactoredPlayerController Instance { get; private set; }
 
@@ -39,26 +39,6 @@ public class RefactoredPlayerController : PlayerControllerBase
     protected override void SelectBullet(int index)
     {
         // Aquí puedes agregar el código que se ejecutará cuando se seleccione un proyectil
-    }*/
-
-    private static RefactoredPlayerController instance;
-
-    private RefactoredPlayerController() { }
-
-    public static RefactoredPlayerController Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new RefactoredPlayerController();
-            }
-            return instance;
-        }
     }
-
-    protected override bool NoSelectedBullet => throw new System.NotImplementedException();
-    protected override void Shoot() { }
-    protected override void SelectBullet(int index) { }
 
 }
