@@ -6,4 +6,5 @@ public abstract class RefactoredObstacle : ObstacleBase
     {
         throw new System.NotImplementedException();
     }
+
 }

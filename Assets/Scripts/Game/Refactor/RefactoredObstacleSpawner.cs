@@ -40,5 +40,39 @@ public class RefactoredObstacleSpawner : ObstacleSpawnerBase
         }
     }
 
-    
+    protected override void SpawnObject()
+    {
+        PoolBase poolToUse = null;
+
+        float randomValue = Random.value;
+
+        if (randomValue < 0.5f)
+        {
+            poolToUse = obstacleLowPool;
+        }
+        else if (randomValue < 0.8f)
+        {
+            poolToUse = obstacleMidPool;
+        }
+        else
+        {
+            poolToUse = obstacleHardPool;
+        }
+
+        GameObject newObstacle = poolToUse.GetPooledObject();
+
+        if (newObstacle != null)
+        {
+            float xPos = Random.Range(-6f, 6f);
+            float zPos = transform.position.z;
+
+            newObstacle.transform.position = new Vector3(xPos, 0f, zPos);
+
+            newObstacle.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Obstacle pool is empty");
+        }
+    }
 }

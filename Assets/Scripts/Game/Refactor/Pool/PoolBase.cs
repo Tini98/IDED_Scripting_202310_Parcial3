@@ -28,4 +28,16 @@ public abstract class PoolBase : MonoBehaviour, IPool
             instances.Add(Instantiate(basePrefab, transform.position, Quaternion.identity));
         }
     }
+    public GameObject GetPooledObject()
+    {
+        foreach (GameObject instance in instances)
+        {
+            if (!instance.activeInHierarchy)
+            {
+                return instance;
+            }
+        }
+
+        return null;
+    }
 }
