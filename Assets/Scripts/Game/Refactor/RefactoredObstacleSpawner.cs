@@ -59,6 +59,12 @@ public class RefactoredObstacleSpawner : ObstacleSpawnerBase
             poolToUse = obstacleHardPool;
         }
 
+        if (poolToUse == null)
+        {
+            Debug.LogWarning("Obstacle pool is not set");
+            return;
+        }
+
         GameObject newObstacle = poolToUse.GetPooledObject();
 
         if (newObstacle != null)
@@ -76,3 +82,4 @@ public class RefactoredObstacleSpawner : ObstacleSpawnerBase
         }
     }
 }
+

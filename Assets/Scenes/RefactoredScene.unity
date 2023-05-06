@@ -790,7 +790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a93534feb16645b79ac92437de3dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
+  debug: 1
   instanceRate: 1.25
   obstacleLowPool: {fileID: 0}
   obstacleMidPool: {fileID: 0}
