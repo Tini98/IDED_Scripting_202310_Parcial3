@@ -40,12 +40,34 @@ public abstract class UIManagerBase : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        if (PlayerController == null)
+        /*if (PlayerController == null)
         {
             Debug.LogError("Can't initialize without player");
             enabled = false;
             scoreLabel.text = "Invalid";
             timeLabel.text = "99:99:99";
+        }
+        else
+        {
+            UpdateScoreLabel();
+        }
+
+        gameOverPanel?.SetActive(false);
+        enabled = true;
+        EnableIcon(0);*/
+
+        if (PlayerController == null)
+        {
+            Debug.LogError("Can't initialize without player");
+            enabled = false;
+            if (scoreLabel != null)
+            {
+                scoreLabel.text = "Invalid";
+            }
+            if (timeLabel != null)
+            {
+                timeLabel.text = "99:99:99";
+            }
         }
         else
         {
