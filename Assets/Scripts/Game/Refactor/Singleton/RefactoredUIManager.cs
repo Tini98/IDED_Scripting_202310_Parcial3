@@ -1,35 +1,28 @@
+using UnityEngine;
+
 public class RefactoredUIManager : UIManagerBase
 {
     /* protected override PlayerControllerBase PlayerController => throw new System.NotImplementedException();
 
-     protected override GameControllerBase GameController => throw new System.NotImplementedException();*/
+     protected override GameControllerBase GameController => throw new System.NotImplementedException();
+*/
+    protected override PlayerControllerBase PlayerController => RefactoredPlayerController.Instance;
 
+    protected override GameControllerBase GameController => RefactoredGameController.Instance;
 
-    private static RefactoredUIManager instance = null;
-    private static readonly object padlock = new object();
+    public static RefactoredUIManager Instance { get; private set; }
 
-    public static RefactoredUIManager Instance
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new RefactoredUIManager();
-                }
-                return instance;
-            }
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Multiple instances of RefactoredUIManager");
+            Destroy(gameObject);
         }
     }
 
-    private RefactoredUIManager() { }
-
-    protected override PlayerControllerBase PlayerController => RefactoredPlayerController.Instance;
-    protected override GameControllerBase GameController => RefactoredGameController.Instance;
-
-    public void ShowGameOverScreen()
-    {
-        // Implementación para mostrar la pantalla de Game Over
-    }
 }

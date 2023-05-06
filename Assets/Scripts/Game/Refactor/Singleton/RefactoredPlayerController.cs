@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class RefactoredPlayerController : PlayerControllerBase
 {
     /*protected override bool NoSelectedBullet => throw new System.NotImplementedException();
@@ -12,63 +14,31 @@ public class RefactoredPlayerController : PlayerControllerBase
          //base.SelectBullet(index);
      }*/
 
-    /*private static RefactoredPlayerController instance = null;
-    private static readonly object padlock = new object();
+    protected override bool NoSelectedBullet => false;
 
-    public static RefactoredPlayerController Instance
+    public static RefactoredPlayerController Instance { get; private set; }
+
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new RefactoredPlayerController();
-                }
-                return instance;
-            }
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Multiple instances of RefactoredPlayerController");
+            Destroy(gameObject);
         }
     }
-
-    private RefactoredPlayerController() { }
-
-    protected override bool NoSelectedBullet => throw new System.NotImplementedException();
-    protected override void Shoot() { }
-    protected override void SelectBullet(int index) { }*/
-
-    private bool noSelectedBullet = true;
-    private int selectedBulletIndex = -1;
-
-    private static RefactoredPlayerController instance = null;
-    private static readonly object padlock = new object();
-
-    public static RefactoredPlayerController Instance
-    {
-        get
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new RefactoredPlayerController();
-                }
-                return instance;
-            }
-        }
-    }
-
-    private RefactoredPlayerController() { }
-
-    protected override bool NoSelectedBullet => noSelectedBullet;
 
     protected override void Shoot()
     {
-        // Implementación de ejecutar cuando se dispara una bala
+        // Aquí puedes agregar el código que se ejecutará cuando se dispare un proyectil
     }
 
     protected override void SelectBullet(int index)
     {
-        selectedBulletIndex = index;
-        noSelectedBullet = false;
+        // Aquí puedes agregar el código que se ejecutará cuando se seleccione un proyectil
     }
+
 }

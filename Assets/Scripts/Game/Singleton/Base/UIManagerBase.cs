@@ -18,6 +18,21 @@ public abstract class UIManagerBase : MonoBehaviour
     protected abstract PlayerControllerBase PlayerController { get; }
     protected abstract GameControllerBase GameController { get; }
 
+    public static UIManagerBase Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Multiple instances of UIManagerBase");
+            Destroy(gameObject);
+        }
+    }
+
+
     public void RestartLevel()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
@@ -40,7 +55,7 @@ public abstract class UIManagerBase : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        /*if (PlayerController == null)
+        if (PlayerController == null)
         {
             Debug.LogError("Can't initialize without player");
             enabled = false;
@@ -54,29 +69,8 @@ public abstract class UIManagerBase : MonoBehaviour
 
         gameOverPanel?.SetActive(false);
         enabled = true;
-        EnableIcon(0);*/
-
-        if (PlayerController == null)
-        {
-            Debug.LogError("Can't initialize without player");
-            enabled = false;
-            if (scoreLabel != null)
-            {
-                scoreLabel.text = "Invalid";
-            }
-            if (timeLabel != null)
-            {
-                timeLabel.text = "99:99:99";
-            }
-        }
-        else
-        {
-            UpdateScoreLabel();
-        }
-
-        gameOverPanel?.SetActive(false);
-        enabled = true;
         EnableIcon(0);
+
     }
 
     // Update is called once per frame

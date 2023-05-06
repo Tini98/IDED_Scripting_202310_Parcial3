@@ -2,7 +2,21 @@ using UnityEngine;
 
 public class RefactoredObstacleSpawner : ObstacleSpawnerBase
 {
-    /*[SerializeField]
+    /* [SerializeField]
+     private PoolBase obstacleLowPool;
+
+     [SerializeField]
+     private PoolBase obstacleMidPool;
+
+     [SerializeField]
+     private PoolBase obstacleHardPool;
+
+     protected override void SpawnObject()
+     {
+         throw new System.NotImplementedException();
+     }*/
+
+    [SerializeField]
     private PoolBase obstacleLowPool;
 
     [SerializeField]
@@ -11,43 +25,20 @@ public class RefactoredObstacleSpawner : ObstacleSpawnerBase
     [SerializeField]
     private PoolBase obstacleHardPool;
 
-    protected override void SpawnObject()
+    public static RefactoredObstacleSpawner Instance { get; private set; }
+
+    private void Awake()
     {
-        throw new System.NotImplementedException();
-    }*/
-
-
-    private static RefactoredObstacleSpawner instance = null;
-    private static readonly object padlock = new object();
-
-    public static RefactoredObstacleSpawner Instance
-    {
-        get
+        if (Instance == null)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new RefactoredObstacleSpawner();
-                }
-                return instance;
-            }
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Multiple instances of RefactoredObstacleSpawner");
+            Destroy(gameObject);
         }
     }
 
-    private RefactoredObstacleSpawner() { }
-
-    [SerializeField]
-    private PoolBase obstacleLowPool;
-
-    [SerializeField]
-    private PoolBase obstacleMidPool;
-
-    [SerializeField]
-    private PoolBase obstacleHardPool;
-
-    protected override void SpawnObject()
-    {
-        // Implementación para generar un obstáculo
-    }
+    
 }
