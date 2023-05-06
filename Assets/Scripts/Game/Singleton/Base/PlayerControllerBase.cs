@@ -97,4 +97,6 @@ public abstract class PlayerControllerBase : MonoBehaviour
             SelectBullet(2);
         }
     }
+
+    protected int SelectedBulletIndex { get; set; }
 }
