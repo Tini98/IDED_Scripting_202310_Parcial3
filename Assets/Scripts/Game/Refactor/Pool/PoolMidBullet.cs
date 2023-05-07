@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 // Definimos una clase llamada "PoolMidBullet" que hereda de "PoolBase"
 public class PoolMidBullet : PoolBase
 {
