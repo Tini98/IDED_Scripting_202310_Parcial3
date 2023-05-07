@@ -94,6 +94,11 @@ public abstract class UIManagerBase : MonoBehaviour
 
     private void ToggleUIControl(Graphic uiControl, bool val)
     {
+        if (uiControl == null)
+        {
+            return;
+        }
+
         uiControl.enabled = val;
         uiControl.gameObject.SetActive(val);
     }

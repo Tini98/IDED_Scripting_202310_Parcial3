@@ -30,10 +30,15 @@ public abstract class PoolBase : MonoBehaviour, IPool
     {
         for (int i = 0; i < instances.Count; i++)
         {
+            if (instances[i] == null) continue; // added null check
             if (!instances[i].activeInHierarchy)
             {
                 instances[i].SetActive(true);
-                instances[i].GetComponent<Ipoolable>().SetUp(2);
+                Ipoolable poolable = instances[i].GetComponent<Ipoolable>();
+                if (poolable != null)
+                {
+                    poolable.SetUp(2);
+                }
                 return instances[i];
             }
         }
