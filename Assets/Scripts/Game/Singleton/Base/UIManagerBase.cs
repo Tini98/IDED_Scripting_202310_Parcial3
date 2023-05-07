@@ -18,21 +18,6 @@ public abstract class UIManagerBase : MonoBehaviour
     protected abstract PlayerControllerBase PlayerController { get; }
     protected abstract GameControllerBase GameController { get; }
 
-    public static UIManagerBase Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Debug.LogError("Multiple instances of UIManagerBase");
-            Destroy(gameObject);
-        }
-    }
-
-
     public void RestartLevel()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
@@ -70,7 +55,6 @@ public abstract class UIManagerBase : MonoBehaviour
         gameOverPanel?.SetActive(false);
         enabled = true;
         EnableIcon(0);
-
     }
 
     // Update is called once per frame
@@ -113,4 +97,6 @@ public abstract class UIManagerBase : MonoBehaviour
         uiControl.enabled = val;
         uiControl.gameObject.SetActive(val);
     }
+
+
 }
