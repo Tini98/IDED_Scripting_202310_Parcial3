@@ -34,7 +34,7 @@ public abstract class PlayerControllerBase : MonoBehaviour
     protected abstract void Shoot();
 
     protected abstract void SelectBullet(int index);
-
+     
     protected void UpdateScore(int scoreAdd) =>
         Score += (uint)System.Math.Abs(scoreAdd);
 
