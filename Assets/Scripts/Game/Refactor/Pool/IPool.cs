@@ -2,7 +2,6 @@ using UnityEngine;
 
 public interface IPool
 {
-    public GameObject RetrieveInstance();
-
-    public void RecycleInstance(GameObject instance);
+    // Definimos un método llamado "GetOBJ()" que devuelve un objeto de tipo "GameObject"
+    public GameObject GetOBJ();
 }
