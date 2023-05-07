@@ -25,7 +25,6 @@ public abstract class UIManagerBase : MonoBehaviour
 
     protected void OnGameOver()
     {
-        enabled = false;
         gameOverPanel?.SetActive(true);
     }
 
@@ -60,11 +59,18 @@ public abstract class UIManagerBase : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        
         if (timeLabel != null)
         {
             float currentTime = GameController.RemainingPlayTime + 1;
             timeLabel.text = currentTime.ToTimeFormatString();
+
+            if (currentTime <= 0)
+            {
+                OnGameOver();
+            }
         }
+
     }
 
     protected void EnableIcon(int iconIndex)

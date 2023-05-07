@@ -27,7 +27,14 @@ public abstract class RefactoredObstacle : ObstacleBase
             }
         }
 
-        GetComponent<Ipoolable>().Recycle();
+        if (gameObject.activeSelf && gameObject.activeInHierarchy)
+        {
+            Ipoolable poolable = GetComponent<Ipoolable>();
+            if (poolable != null)
+            {
+                poolable.Recycle();
+            }
+        }
     }
 
 }
