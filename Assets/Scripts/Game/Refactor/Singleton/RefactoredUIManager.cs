@@ -1,28 +1,27 @@
-using UnityEngine;
-
 public class RefactoredUIManager : UIManagerBase
 {
-    /* protected override PlayerControllerBase PlayerController => throw new System.NotImplementedException();
-
-     protected override GameControllerBase GameController => throw new System.NotImplementedException();
-*/
-    protected override PlayerControllerBase PlayerController => RefactoredPlayerController.Instance;
-
-    protected override GameControllerBase GameController => RefactoredGameController.Instance;
-
-    public static RefactoredUIManager Instance { get; private set; }
+    public static RefactoredUIManager Instance { get; private set; } = null;
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null)
         {
-            Instance = this;
+            Destroy(this.gameObject);
+            return;
         }
-        else
-        {
-            Debug.LogError("Multiple instances of RefactoredUIManager");
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 
-}
+    protected override void Start()
+    {
+        base.Start();
+
+        RefactoredGameController.UI_ChangeScore += UpdateScoreLabel;
+        RefactoredGameController.OnGameOverActions += OnGameOver;
+        RefactoredPlayerController.UI_IconAction += EnableIcon;
+    }
+
+    protected override PlayerControllerBase PlayerController => RefactoredPlayerController.Instance;
+
+    protected override GameControllerBase GameController => RefactoredGameController.Instance;
+} 
