@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GameControllerBase : MonoBehaviour
@@ -13,6 +15,8 @@ public abstract class GameControllerBase : MonoBehaviour
     protected abstract ObstacleSpawnerBase Spawner { get; }
 
     protected abstract void OnObstacleDestroyed(int hp);
+
+
 
     protected virtual void SetGameOver()
     {
@@ -40,4 +44,6 @@ public abstract class GameControllerBase : MonoBehaviour
             SetGameOver();
         }
     }
+
+
 }

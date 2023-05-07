@@ -33,7 +33,7 @@ public abstract class ObstacleBase : MonoBehaviour
         else
         {
             int collisionLayer = collision.gameObject.layer;
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
 
             if (collisionLayer.Equals(LayerMask.NameToLayer(GameUtils.BULLET_HARD_LAYER_NAME)))
             {
