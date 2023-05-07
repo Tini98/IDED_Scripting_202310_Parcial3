@@ -1,9 +1,33 @@
+using System;
+using System.Collections.Generic;
+
 public abstract class RefactoredObstacle : ObstacleBase
 {
-    protected override GameControllerBase GameController => throw new System.NotImplementedException();
+    protected override GameControllerBase GameController => RefactoredGameController.Instance;
+
+    public static Action<int> OnDestroyAction;
+
+    private void OnEnable()
+    {
+        RefactoredObstacle.OnDestroyAction += RefactoredGameController.OnObstacleDestroyerdAction;
+    }
+
+    private void OnDisable()
+    {
+        RefactoredObstacle.OnDestroyAction -= RefactoredGameController.OnObstacleDestroyerdAction;
+    }
 
     protected override void DestroyObstacle(bool notify = false)
     {
-        throw new System.NotImplementedException();
+        if (notify)
+        {
+            if (OnDestroyAction != null)
+            {
+                OnDestroyAction(HP);
+            }
+        }
+
+        GetComponent<Ipoolable>().Recycle();
     }
+
 }
