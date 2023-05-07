@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class RefactoredObstacleSpawner : ObstacleSpawnerBase
 {
-    /* [SerializeField]
-     private PoolBase obstacleLowPool;
+    public static RefactoredObstacleSpawner Instance { get; private set; } = null;
 
-     [SerializeField]
-     private PoolBase obstacleMidPool;
-
-     [SerializeField]
-     private PoolBase obstacleHardPool;
-
-     protected override void SpawnObject()
-     {
-         throw new System.NotImplementedException();
-     }*/
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     [SerializeField]
     private PoolBase obstacleLowPool;
@@ -25,60 +23,31 @@ public class RefactoredObstacleSpawner : ObstacleSpawnerBase
     [SerializeField]
     private PoolBase obstacleHardPool;
 
-    public static RefactoredObstacleSpawner Instance { get; private set; }
-
-    private void Awake()
+    protected override void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Debug.LogError("Multiple instances of RefactoredObstacleSpawner");
-            Destroy(gameObject);
-        }
+        base.Start();
+        RefactoredGameController.OnGameOverActions += OnGameOver;
     }
 
     protected override void SpawnObject()
     {
-        PoolBase poolToUse = null;
+        int i = Random.Range(0, 3);
 
-        float randomValue = Random.value;
-
-        if (randomValue < 0.5f)
+        switch (i)
         {
-            poolToUse = obstacleLowPool;
-        }
-        else if (randomValue < 0.8f)
-        {
-            poolToUse = obstacleMidPool;
-        }
-        else
-        {
-            poolToUse = obstacleHardPool;
-        }
+            case 0:
+                GameObject OBJ = obstacleLowPool.GetOBJ();
+                OBJ.transform.position = new Vector2(Random.Range(MinX, MaxX), YPos);
 
-        if (poolToUse == null)
-        {
-            Debug.LogWarning("Obstacle pool is not set");
-            return;
-        }
-
-        GameObject newObstacle = poolToUse.GetPooledObject();
-
-        if (newObstacle != null)
-        {
-            float xPos = Random.Range(-6f, 6f);
-            float zPos = transform.position.z;
-
-            newObstacle.transform.position = new Vector3(xPos, 0f, zPos);
-
-            newObstacle.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("Obstacle pool is empty");
+                break;
+            case 1:
+                GameObject OBJ2 = obstacleMidPool.GetOBJ();
+                OBJ2.transform.position = new Vector2(Random.Range(MinX, MaxX), YPos);
+                break;
+            case 2:
+                GameObject OBJ3 = obstacleHardPool.GetOBJ();
+                OBJ3.transform.position = new Vector2(Random.Range(MinX, MaxX), YPos);
+                break;
         }
     }
 }
