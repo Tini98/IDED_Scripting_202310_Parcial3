@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a481274d104864eb146bd40d86772f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playTime: 5
+  playTime: 10
 --- !u!1 &797594116
 GameObject:
   m_ObjectHideFlags: 0

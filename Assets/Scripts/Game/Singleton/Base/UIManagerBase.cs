@@ -18,14 +18,23 @@ public abstract class UIManagerBase : MonoBehaviour
     protected abstract PlayerControllerBase PlayerController { get; }
     protected abstract GameControllerBase GameController { get; }
 
+
+    private float lastTime;
+    private float lastUpdateTime;
+    private float timeStuckThreshold = 1f;
+
     public void RestartLevel()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
-    protected void OnGameOver()
+    public void OnGameOver()
     {
-        gameOverPanel?.SetActive(true);
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+        Debug.Log("OnGameOver() called");
     }
 
     protected void UpdateScoreLabel()
@@ -59,14 +68,53 @@ public abstract class UIManagerBase : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+        /*
         if (timeLabel != null)
         {
             float currentTime = GameController.RemainingPlayTime + 1;
+            Debug.Log("time: "+currentTime);
+
             timeLabel.text = currentTime.ToTimeFormatString();
+            Debug.Log("deberia volver a entrara a OnGameOver()");
+
+           
 
             if (currentTime <= 0)
             {
+                Debug.Log("OnGameOver() called again");
+                OnGameOver();
+              
+            }
+        }*/
+
+        if (timeLabel != null)
+        {
+            float currentTime = GameController.RemainingPlayTime + 1;
+            Debug.Log("time: " + currentTime);
+
+            if (currentTime == lastTime)
+            {
+                // El tiempo no ha cambiado desde el último frame
+                if (Time.unscaledTime > lastUpdateTime + timeStuckThreshold)
+                {
+                    // El tiempo se ha quedado atascado, establece el tiempo en cero
+                    Debug.Log("Time is stuck, setting it to zero");
+                    currentTime = 0f;
+                }
+            }
+            else
+            {
+                // El tiempo ha cambiado, actualiza la última actualización del tiempo
+                lastTime = currentTime;
+                lastUpdateTime = Time.unscaledTime;
+            }
+
+            timeLabel.text = currentTime.ToTimeFormatString();
+            Debug.Log("deberia volver a entrara a OnGameOver()");
+
+            if (currentTime <= 0)
+            {
+                Debug.Log("OnGameOver() called again");
                 OnGameOver();
             }
         }
